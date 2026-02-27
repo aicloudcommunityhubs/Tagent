@@ -6,7 +6,12 @@ import { Mail, CheckCircle, Loader2, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function CTA3D() {
+interface CTA3DProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export function CTA3D({ title, subtitle }: CTA3DProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
@@ -53,13 +58,12 @@ export function CTA3D() {
             </motion.div>
 
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-              Ready to Transform Your{" "}
-              <span className="gradient-text">Kubernetes Operations?</span>
+              {title || "Ready to Transform Your"}{" "}
+              <span className="gradient-text">{title ? "" : "Kubernetes Operations?"}</span>
             </h2>
 
             <p className="text-lg text-[#71717a] max-w-2xl mx-auto mb-10">
-              Join the waitlist for early access and be among the first to experience 
-              autonomous incident management.
+              {subtitle || "Join the waitlist for early access and be among the first to experience autonomous incident management."}
             </p>
 
             {/* Form */}

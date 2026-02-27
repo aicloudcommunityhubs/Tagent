@@ -9,14 +9,21 @@ import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Node type definition
+interface NodeData {
+  position: [number, number, number];
+  scale: number;
+  speed: number;
+}
+
 // Neural Network Nodes with connections
 function NeuralNetwork() {
   const groupRef = useRef<THREE.Group>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
   
   // Create nodes in a more structured pattern
-  const nodes = useMemo(() => {
-    const temp = [];
+  const nodes = useMemo<NodeData[]>(() => {
+    const temp: NodeData[] = [];
     // Create hexagonal-ish pattern
     for (let ring = 0; ring < 4; ring++) {
       const count = ring === 0 ? 1 : ring * 6;
@@ -28,7 +35,7 @@ function NeuralNetwork() {
             Math.cos(angle) * radius + (Math.random() - 0.5) * 0.5,
             Math.sin(angle) * radius + (Math.random() - 0.5) * 0.5,
             (Math.random() - 0.5) * 3 - 2
-          ] as [number, number, number],
+          ],
           scale: 0.08 + Math.random() * 0.06,
           speed: 0.5 + Math.random() * 1,
         });
@@ -85,9 +92,7 @@ function NeuralNetwork() {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={connections.positions.length / 3}
-            array={connections.positions}
-            itemSize={3}
+            args={[connections.positions, 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial
@@ -151,7 +156,7 @@ function ParticleDust() {
   const points = useRef<THREE.Points>(null);
   
   const particles = useMemo(() => {
-    const temp = [];
+    const temp: number[] = [];
     for (let i = 0; i < 100; i++) {
       temp.push(
         (Math.random() - 0.5) * 40,
@@ -163,7 +168,7 @@ function ParticleDust() {
   }, []);
 
   const sizes = useMemo(() => {
-    const temp = [];
+    const temp: number[] = [];
     for (let i = 0; i < 100; i++) {
       temp.push(Math.random() * 2 + 0.5);
     }
@@ -181,15 +186,7 @@ function ParticleDust() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={particles.length / 3}
-          array={particles}
-          itemSize={3}
-        />
-        <bufferAttribute
-          attach="attributes-size"
-          count={sizes.length}
-          array={sizes}
-          itemSize={1}
+          args={[particles, 3]}
         />
       </bufferGeometry>
       <pointsMaterial

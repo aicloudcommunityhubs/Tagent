@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 interface FeatureCard3DProps {
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   gradient: string;
