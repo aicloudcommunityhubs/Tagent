@@ -4,7 +4,7 @@
 # ============================================
 
 # Stage 1: Dependencies
-FROM oven/bun:1.3.4-alpine AS deps
+FROM oven/bun:1.3.4 AS deps
 WORKDIR /app
 
 # Install dependencies (including devDependencies for build)
@@ -12,7 +12,7 @@ COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
 # Stage 2: Builder
-FROM oven/bun:1.3.4-alpine AS builder
+FROM oven/bun:1.3.4 AS builder
 WORKDIR /app
 
 # Copy dependencies from deps stage
@@ -22,6 +22,7 @@ COPY . .
 # Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Build the application
 RUN bun run build
