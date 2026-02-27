@@ -43,74 +43,81 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/*
+ * Boring, functional color scheme
+ * Background: #0a0a0a (near black)
+ * Text: #fafafa (off-white)
+ * Muted: #666666 (gray)
+ * Border: #e5e5e5 (light gray)
+ * Accent: #22c55e (terminal green)
+ */
 :root {
-  --radius: 0.5rem;
-  /* Tagent Human-Crafted Dark Theme */
-  --background: #0c0c0c;
+  --radius: 0;
+  --background: #0a0a0a;
   --foreground: #fafafa;
-  --card: #141414;
+  --card: #0a0a0a;
   --card-foreground: #fafafa;
-  --popover: #141414;
+  --popover: #0a0a0a;
   --popover-foreground: #fafafa;
-  --primary: #f59e0b;
-  --primary-foreground: #0c0c0c;
-  --secondary: #1a1a1a;
+  --primary: #22c55e;
+  --primary-foreground: #0a0a0a;
+  --secondary: #141414;
   --secondary-foreground: #a3a3a3;
-  --muted: #171717;
-  --muted-foreground: #737373;
-  --accent: #f59e0b;
-  --accent-foreground: #0c0c0c;
+  --muted: #141414;
+  --muted-foreground: #666666;
+  --accent: #22c55e;
+  --accent-foreground: #0a0a0a;
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #f59e0b;
-  --chart-1: #f59e0b;
-  --chart-2: #fbbf24;
-  --chart-3: #d97706;
-  --chart-4: #78716c;
-  --chart-5: #a8a29e;
-  --sidebar: #0c0c0c;
+  --border: #1a1a1a;
+  --input: #1a1a1a;
+  --ring: #22c55e;
+  --chart-1: #22c55e;
+  --chart-2: #4ade80;
+  --chart-3: #16a34a;
+  --chart-4: #666666;
+  --chart-5: #a3a3a3;
+  --sidebar: #0a0a0a;
   --sidebar-foreground: #fafafa;
-  --sidebar-primary: #f59e0b;
-  --sidebar-primary-foreground: #0c0c0c;
-  --sidebar-accent: #171717;
+  --sidebar-primary: #22c55e;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #141414;
   --sidebar-accent-foreground: #a3a3a3;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #f59e0b;
+  --sidebar-border: #1a1a1a;
+  --sidebar-ring: #22c55e;
 }
 
 .dark {
-  --background: #0c0c0c;
+  --background: #0a0a0a;
   --foreground: #fafafa;
-  --card: #141414;
+  --card: #0a0a0a;
   --card-foreground: #fafafa;
-  --popover: #141414;
+  --popover: #0a0a0a;
   --popover-foreground: #fafafa;
-  --primary: #f59e0b;
-  --primary-foreground: #0c0c0c;
-  --secondary: #1a1a1a;
+  --primary: #22c55e;
+  --primary-foreground: #0a0a0a;
+  --secondary: #141414;
   --secondary-foreground: #a3a3a3;
-  --muted: #171717;
-  --muted-foreground: #737373;
-  --accent: #f59e0b;
-  --accent-foreground: #0c0c0c;
+  --muted: #141414;
+  --muted-foreground: #666666;
+  --accent: #22c55e;
+  --accent-foreground: #0a0a0a;
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #f59e0b;
-  --chart-1: #f59e0b;
-  --chart-2: #fbbf24;
-  --chart-3: #d97706;
-  --chart-4: #78716c;
-  --chart-5: #a8a29e;
-  --sidebar: #0c0c0c;
+  --border: #1a1a1a;
+  --input: #1a1a1a;
+  --ring: #22c55e;
+  --chart-1: #22c55e;
+  --chart-2: #4ade80;
+  --chart-3: #16a34a;
+  --chart-4: #666666;
+  --chart-5: #a3a3a3;
+  --sidebar: #0a0a0a;
   --sidebar-foreground: #fafafa;
-  --sidebar-primary: #f59e0b;
-  --sidebar-primary-foreground: #0c0c0c;
-  --sidebar-accent: #171717;
+  --sidebar-primary: #22c55e;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #141414;
   --sidebar-accent-foreground: #a3a3a3;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #f59e0b;
+  --sidebar-border: #1a1a1a;
+  --sidebar-ring: #22c55e;
 }
 
 @layer base {
@@ -122,7 +129,7 @@
   }
 }
 
-/* Clean Scrollbar */
+/* Simple scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -134,35 +141,32 @@
 
 ::-webkit-scrollbar-thumb {
   background: #2a2a2a;
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3a3a3a;
 }
 
-/* Text Selection */
+/* Text selection */
 ::selection {
-  background: rgba(245, 158, 11, 0.3);
+  background: rgba(34, 197, 94, 0.3);
   color: #fafafa;
 }
 
-/* Focus Ring */
+/* Focus ring */
 :focus-visible {
-  outline: 2px solid rgba(245, 158, 11, 0.5);
+  outline: 2px solid #22c55e;
   outline-offset: 2px;
 }
 
-/* Smooth Scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Code Block */
+/* Code blocks */
 pre {
   background: #141414 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  border: 1px solid #1a1a1a;
+  border-radius: 0;
+  padding: 1rem;
+  overflow-x: auto;
 }
 
 code {
@@ -170,35 +174,21 @@ code {
   font-size: 0.875rem;
 }
 
-/* Utility Classes */
-.text-balance {
-  text-wrap: balance;
+/* Simple link underline */
+a {
+  text-decoration: none;
 }
 
-/* Subtle fade-in animation for sections */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+a:hover {
+  text-decoration: underline;
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out forwards;
+/* Paragraph spacing */
+p + p {
+  margin-top: 1em;
 }
 
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  
-  .animate-fade-in-up {
-    animation: none;
-    opacity: 1;
-  }
+/* Readable line length */
+.prose {
+  max-width: 720px;
 }
