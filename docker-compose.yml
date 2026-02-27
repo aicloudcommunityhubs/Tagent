@@ -1,0 +1,82 @@
+# ============================================
+# Tagent - Docker Compose Configuration
+# Production-ready deployment setup
+# ============================================
+
+services:
+  # ==========================================
+  # Tagent Web Application
+  # ==========================================
+  tagent-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    container_name: tagent-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      # Add your environment variables here
+      # - DATABASE_URL=${DATABASE_URL}
+      # - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      # - NEXTAUTH_URL=${NEXTAUTH_URL}
+    networks:
+      - tagent-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  # ==========================================
+  # Development Service (uncomment to use)
+  # ==========================================
+  # tagent-dev:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   container_name: tagent-dev
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #   networks:
+  #     - tagent-network
+
+networks:
+  tagent-network:
+    driver: bridge
+
+# ==========================================
+# Optional: Add database service
+# ==========================================
+# services:
+#   postgres:
+#     image: postgres:16-alpine
+#     container_name: tagent-db
+#     restart: unless-stopped
+#     environment:
+#       POSTGRES_USER: tagent
+#       POSTGRES_PASSWORD: ${DB_PASSWORD}
+#       POSTGRES_DB: tagent
+#     volumes:
+#       - postgres-data:/var/lib/postgresql/data
+#     networks:
+#       - tagent-network
+#
+# volumes:
+#   postgres-data:
