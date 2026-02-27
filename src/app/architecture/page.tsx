@@ -1,75 +1,92 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
+  ArrowRight,
   Box,
-  Layers,
-  Database,
+  GitBranch,
   Brain,
   Network,
-  GitBranch,
   Shield,
-  FileText,
-  ArrowRight,
-  CheckCircle,
+  Database,
   Server,
   Lock,
-  Cpu,
-  Activity,
-  Zap,
-  Terminal,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { CTA3D } from "@/components/home/CTA3D";
 
-const architectureFlow = [
-  { icon: Box, title: "Helm Install", description: "Deploy Tagent with a single Helm command." },
-  { icon: Layers, title: "Tagent Controller", description: "The central brain orchestrating all operations." },
-  { icon: Database, title: "Collectors", description: "Gather telemetry from your cluster." },
-  { icon: Brain, title: "AI Decision Engine", description: "LLM-powered reasoning and analysis." },
-  { icon: Network, title: "Knowledge Graph", description: "Living map of system relationships." },
-  { icon: GitBranch, title: "Escalation Engine", description: "Smart routing with full context." },
-  { icon: Shield, title: "Remediation Engine", description: "Safe automated fixes." },
-  { icon: FileText, title: "Documentation", description: "Auto-generated postmortems." },
-];
-
-const principles = [
+const architectureSteps = [
+  {
+    icon: Box,
+    title: "Helm Install",
+    description:
+      "Deploy Tagent to your cluster with a single Helm command. Namespace-scoped by default for security.",
+  },
   {
     icon: Server,
-    title: "Kubernetes-Native",
-    description: "Runs entirely within your cluster as native controllers and operators. No external dependencies required.",
-    features: ["Helm chart deployment", "Custom Resource Definitions", "Operator pattern", "Zero external dependencies"],
+    title: "Controller",
+    description:
+      "The Tagent Controller orchestrates all operations. It manages collectors, processes data, and coordinates responses.",
   },
   {
-    icon: Lock,
-    title: "Namespace-Scoped Access",
-    description: "Operates within namespaces you specify. Cannot access resources outside its designated scope.",
-    features: ["Namespace-level permissions", "Resource quotas respected", "Multi-tenant safe", "Scope-limited operations"],
-  },
-  {
-    icon: Cpu,
-    title: "RBAC Integration",
-    description: "Full integration with Kubernetes RBAC. Every action governed by permissions you grant.",
-    features: ["Native RBAC integration", "ClusterRole customization", "Service account isolation", "Permission audits"],
+    icon: Database,
+    title: "Collectors",
+    description:
+      "Lightweight agents collect metrics, logs, and traces from your workloads. Minimal overhead, no data leaves your cluster.",
   },
   {
     icon: Brain,
-    title: "LLM Flexibility",
-    description: "Choose your AI backend. Run models locally for privacy or connect to external providers.",
-    features: ["Ollama integration", "OpenAI / Azure OpenAI", "Anthropic Claude", "Custom endpoints"],
+    title: "AI Decision Engine",
+    description:
+      "The core AI engine analyzes incidents, correlates data, and generates recommendations or automated responses.",
   },
   {
-    icon: Activity,
+    icon: Network,
+    title: "Knowledge Graph",
+    description:
+      "Builds and maintains a real-time map of your system's relationships and dependencies.",
+  },
+  {
+    icon: GitBranch,
+    title: "Escalation Engine",
+    description:
+      "Routes incidents to the right people based on configurable policies. Integrates with PagerDuty, Slack, and more.",
+  },
+  {
+    icon: Shield,
+    title: "Remediation Engine",
+    description:
+      "Executes automated responses based on your rules. Full audit trail and instant rollback capability.",
+  },
+];
+
+const features = [
+  {
+    title: "Kubernetes-Native",
+    description:
+      "Deployed as standard Kubernetes resources. No special privileges required. Works with any CNCF-certified cluster.",
+  },
+  {
+    title: "Namespace-Scoped Access",
+    description:
+      "Tagent operates only in the namespaces you specify. No cluster-wide permissions needed by default.",
+  },
+  {
+    title: "RBAC Integration",
+    description:
+      "Full integration with Kubernetes RBAC. Control who can view incidents, approve remediations, and configure rules.",
+  },
+  {
+    title: "Local or External LLM",
+    description:
+      "Run AI models in your own cluster for maximum privacy, or use external providers for more capabilities.",
+  },
+  {
     title: "Explainable AI",
-    description: "Every AI decision logged with full reasoning traces. Understand why each action was taken.",
-    features: ["Decision reasoning logs", "Confidence scores", "Alternative actions", "Audit-ready exports"],
+    description:
+      "Every AI decision comes with a clear explanation. Understand why Tagent recommends or takes specific actions.",
   },
   {
-    icon: Zap,
-    title: "Low Resource Footprint",
-    description: "Designed for production with minimal overhead. Efficient collectors keep usage low.",
-    features: ["< 100MB base memory", "Configurable limits", "Efficient processing", "Graceful degradation"],
+    title: "Air-Gapped Support",
+    description:
+      "Full offline capability for regulated environments. All processing happens within your network.",
   },
 ];
 
@@ -77,216 +94,185 @@ export default function ArchitecturePage() {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero */}
-      <section className="relative py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[#030305]" />
-        <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#22d3ee]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#818cf8]/10 rounded-full blur-3xl" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8">
-              <Layers className="w-4 h-4 text-[#22d3ee]" />
-              <span className="text-sm text-[#a1a1aa]">Architecture</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 tracking-tight">
-              Built <span className="gradient-text">Kubernetes-Native</span>
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="max-w-3xl">
+            <div className="badge mb-4">Architecture</div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              How Tagent Works
             </h1>
-            <p className="text-xl text-[#71717a] max-w-3xl mx-auto">
-              Tagent is designed from the ground up to run safely within your Kubernetes 
-              cluster, respecting its conventions, permissions, and operational patterns.
+            <p className="text-lg text-[#a1a1aa] max-w-2xl leading-relaxed">
+              A Kubernetes-native architecture designed for security, privacy,
+              and operational simplicity. No black boxes, no magic—just
+              transparent AI-powered operations.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Flow */}
-      <section className="relative py-24 bg-[#030305]">
-        <div className="absolute inset-0 grid-bg opacity-20" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              How <span className="gradient-text">Tagent Works</span>
+      {/* Architecture Diagram */}
+      <section className="section">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
+              Architecture Overview
             </h2>
-            <p className="text-lg text-[#71717a] max-w-2xl mx-auto">
-              From installation to automated incident response, understand the data flow 
-              and components that power Tagent.
-            </p>
-          </motion.div>
 
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#818cf8] via-[#a78bfa] to-[#22d3ee] opacity-30" />
-
-            <div className="space-y-8">
-              {architectureFlow.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`flex items-center gap-8 ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}
-                >
-                  <div className={`flex-1 ${index % 2 === 0 ? "lg:text-right" : "lg:text-left"}`}>
-                    <div className={`inline-block p-6 rounded-2xl glass-card ${index % 2 === 0 ? "lg:ml-auto" : ""}`}>
-                      <div className={`flex items-center gap-4 mb-3 ${index % 2 === 0 ? "lg:flex-row-reverse" : ""}`}>
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#818cf8] to-[#a78bfa] flex items-center justify-center flex-shrink-0">
-                          <item.icon className="w-6 h-6 text-white" />
-                        </div>
-                        <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+            <div className="card p-8 mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {architectureSteps.slice(0, 4).map((step, index) => (
+                  <div key={step.title} className="relative">
+                    <div className="card p-4 h-full">
+                      <div className="feature-icon mb-3">
+                        <step.icon className="w-4 h-4" />
                       </div>
-                      <p className="text-[#71717a] text-sm max-w-md">{item.description}</p>
+                      <div className="text-xs text-[#71717a] mb-1">
+                        Step {index + 1}
+                      </div>
+                      <h3 className="text-sm font-semibold text-white mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-xs text-[#a1a1aa]">
+                        {step.description}
+                      </p>
+                    </div>
+                    {index < 3 && (
+                      <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-[#27272a]">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-center my-6">
+                <div className="h-px w-px bg-[#27272a]" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {architectureSteps.slice(4).map((step, index) => (
+                  <div key={step.title} className="relative">
+                    <div className="card p-4 h-full">
+                      <div className="feature-icon mb-3">
+                        <step.icon className="w-4 h-4" />
+                      </div>
+                      <div className="text-xs text-[#71717a] mb-1">
+                        Step {index + 5}
+                      </div>
+                      <h3 className="text-sm font-semibold text-white mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-xs text-[#a1a1aa]">
+                        {step.description}
+                      </p>
                     </div>
                   </div>
-
-                  <div className="hidden lg:flex w-12 h-12 rounded-full bg-gradient-to-br from-[#818cf8] to-[#a78bfa] items-center justify-center flex-shrink-0 z-10 glow-sm">
-                    <span className="text-white font-bold">{index + 1}</span>
-                  </div>
-
-                  <div className="flex-1 hidden lg:block" />
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Principles */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030305] via-[#050508] to-[#030305]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Design <span className="gradient-text">Principles</span>
+      {/* Technical Details */}
+      <section className="section bg-[#0c0c0e] border-t border-b border-[#27272a]">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Built for Enterprise
             </h2>
-            <p className="text-lg text-[#71717a] max-w-2xl mx-auto">
-              Every architectural decision is driven by safety, transparency, and 
-              enterprise-grade operational requirements.
+            <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto">
+              Security and compliance are not afterthoughts. They're core to
+              Tagent's architecture.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {principles.map((principle, index) => (
-              <motion.div
-                key={principle.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative"
-              >
-                <div className="relative h-full p-8 rounded-2xl glass-card-hover">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#818cf8] to-[#a78bfa] p-px mb-6">
-                    <div className="w-full h-full rounded-xl bg-[#0a0a0f] flex items-center justify-center">
-                      <principle.icon className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:gradient-text transition-all duration-300">
-                    {principle.title}
-                  </h3>
-                  <p className="text-[#71717a] text-sm mb-6">{principle.description}</p>
-
-                  <ul className="space-y-2">
-                    {principle.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-[#a1a1aa]">
-                        <CheckCircle className="w-4 h-4 text-[#22c55e] flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {features.map((feature) => (
+              <div key={feature.title} className="card card-hover p-6 group">
+                <Lock className="w-5 h-5 text-[#10b981] mb-4" />
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#10b981] transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Deployment */}
-      <section className="relative py-24 bg-[#030305]">
-        <div className="absolute inset-0 grid-bg opacity-20" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Simple <span className="gradient-text">Deployment</span>
+      {/* Installation */}
+      <section className="section">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
+              Get Started in Minutes
             </h2>
-            <p className="text-lg text-[#71717a] max-w-2xl mx-auto">
-              Get started in minutes with our Helm chart.
-            </p>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto"
-          >
-            <div className="relative rounded-2xl border-gradient overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-3 bg-white/[0.02] border-b border-white/5">
-                <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
-                <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
-                <div className="w-3 h-3 rounded-full bg-[#22c55e]" />
-                <span className="ml-2 text-sm text-[#52525b]">Terminal</span>
-              </div>
-              <pre className="p-6 text-sm overflow-x-auto bg-[#0a0a0f]/80">
-                <code className="text-[#71717a]">
-                  <span className="text-[#22d3ee]">$</span> helm repo add tagent https://charts.tagent.io
-                  {"\n"}
-                  <span className="text-[#22d3ee]">$</span> helm install tagent tagent/tagent {"\\"}
-                  {"\n"}  --namespace tagent-system {"\\"}
-                  {"\n"}  --create-namespace {"\\"}
-                  {"\n"}  --set mode=readonly {"\\"}
-                  {"\n"}  --set llm.provider=openai
-                  {"\n\n"}
-                  <span className="text-[#22c55e]">✓</span> Tagent installed successfully!
-                </code>
+            <div className="card p-6 mb-8">
+              <div className="text-sm text-[#71717a] mb-2">Install with Helm</div>
+              <pre className="!bg-transparent !border-0 text-sm text-[#fafafa]">
+                <code>{`helm repo add tagent https://charts.tagent.io
+helm install tagent tagent/tagent \\
+  --namespace tagent \\
+  --create-namespace \\
+  --set mode=read-only`}</code>
               </pre>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-8 text-center"
-          >
-            <Link href="/docs">
-              <Button variant="outline" className="h-12 px-6 btn-glass border-0">
-                View Full Installation Guide
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </motion.div>
+            <div className="grid md:grid-cols-3 gap-4 text-center">
+              <div className="card p-4">
+                <div className="text-2xl font-bold text-[#10b981] mb-1">5 min</div>
+                <div className="text-sm text-[#a1a1aa]">Installation time</div>
+              </div>
+              <div className="card p-4">
+                <div className="text-2xl font-bold text-[#10b981] mb-1">0</div>
+                <div className="text-sm text-[#a1a1aa]">Cluster-admin required</div>
+              </div>
+              <div className="card p-4">
+                <div className="text-2xl font-bold text-[#10b981] mb-1">100%</div>
+                <div className="text-sm text-[#a1a1aa]">Open source</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <CTA3D />
+      {/* CTA */}
+      <section className="section border-t border-[#27272a]">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to deploy?
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-8">
+              Check out the documentation or contact us for a guided setup.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/docs">
+                <Button
+                  size="lg"
+                  className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-12 px-8"
+                >
+                  Read the Docs
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 px-8 border-[#27272a] text-white hover:bg-[#18181b]"
+                >
+                  Contact Sales
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

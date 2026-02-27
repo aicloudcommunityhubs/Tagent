@@ -1,132 +1,217 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
-const timeline = [
-  { 
-    year: "2023", 
-    title: "Started", 
-    description: "We'd had enough. Three of us, all former SREs, decided to build what we wished existed." 
-  },
-  { 
-    year: "2024", 
-    title: "Alpha", 
-    description: "Released to a few design partners. Learned a lot from real production incidents. Some things worked, some didn't." 
-  },
-  { 
-    year: "2024", 
-    title: "Night Guardian", 
-    description: "Shipped the feature people actually wanted—sleeping through on-call rotations." 
-  },
-  { 
-    year: "2025", 
-    title: "Now", 
-    description: "Opening up to more teams." 
-  },
-];
+import {
+  Rocket,
+  Target,
+  Users,
+  Heart,
+  ArrowRight,
+  Briefcase,
+} from "lucide-react";
 
 const values = [
-  "Production first. Every feature is tested in real environments before it ships.",
-  "Explainable AI. No black boxes. You should always know why Tagent made a decision.",
-  "Human control. AI suggests, humans decide. Escalate to automation only when you're ready.",
-  "Sleep is important. We're not here to make engineers work more. We're here to help them work less.",
+  {
+    icon: Target,
+    title: "Production First",
+    description:
+      "Every feature is designed with production safety in mind. We build tools we'd want to use ourselves.",
+  },
+  {
+    icon: Rocket,
+    title: "Intelligent Automation",
+    description:
+      "AI should augment human capabilities, not replace them. We build systems that make engineers more effective.",
+  },
+  {
+    icon: Heart,
+    title: "Engineer Wellbeing",
+    description:
+      "Sustainable operations matter. We're here to eliminate burnout and give teams their nights and weekends back.",
+  },
+  {
+    icon: Users,
+    title: "Open by Default",
+    description:
+      "We believe in transparent, explainable systems. No black boxes, no magic—just understandable AI.",
+  },
 ];
 
-const jobs = [
-  { title: "Senior Software Engineer", location: "Remote" },
-  { title: "ML Engineer", location: "Remote" },
+const timeline = [
+  {
+    year: "2023",
+    title: "Founded",
+    description:
+      "Tagent was founded by engineers who lived through the pain of Kubernetes incident management.",
+  },
+  {
+    year: "2024",
+    title: "Alpha Launch",
+    description:
+      "Released our alpha to select design partners. Learned invaluable lessons from real production incidents.",
+  },
+  {
+    year: "2024",
+    title: "Night Guardian Mode",
+    description:
+      "Introduced our flagship feature that lets SREs sleep while Tagent handles routine incidents.",
+  },
+  {
+    year: "2025",
+    title: "Open Source Launch",
+    description:
+      "Released Tagent as open source. The future of autonomous operations is here.",
+  },
+];
+
+const careers = [
+  {
+    title: "Senior Software Engineer",
+    location: "Remote",
+    type: "Full-time",
+  },
+  {
+    title: "ML Engineer",
+    location: "Remote",
+    type: "Full-time",
+  },
+  {
+    title: "Developer Advocate",
+    location: "Remote",
+    type: "Full-time",
+  },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-20">
       {/* Hero */}
-      <section className="py-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#fafafa] mb-6">
-            We've been on-call at 3 AM.
-          </h1>
-          <p className="text-lg text-[#666666] max-w-xl">
-            That's why we built Tagent. Not in a conference room. 
-            Not from a slide deck. From actual incidents that ruined actual weekends.
-          </p>
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="max-w-3xl">
+            <div className="badge mb-4">About</div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Building the{" "}
+              <span className="gradient-text">AI Nervous System</span> for
+              Cloud Infrastructure
+            </h1>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl leading-relaxed">
+              We're on a mission to make Kubernetes operations autonomous, safe,
+              and sustainable. Because engineers deserve to build, not just put
+              out fires.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Story */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <div className="grid md:grid-cols-[1fr_2fr] gap-12">
-            <h2 className="text-xl font-bold text-[#fafafa]">The problem</h2>
-            <div className="space-y-4 text-[#666666]">
-              <p>
-                Modern Kubernetes environments are a lot. Teams drown in alerts. 
-                Spend hours on root cause analysis. Burn out from on-call rotations.
+      {/* Mission */}
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="badge mb-4">Our Mission</div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                Autonomous Operations for Kubernetes
+              </h2>
+              <p className="text-[#a1a1aa] leading-relaxed mb-6">
+                Modern Kubernetes environments generate overwhelming complexity.
+                Teams are drowning in alerts, spending hours on root cause
+                analysis, and burning out from on-call rotations. It doesn't have
+                to be this way.
               </p>
-              <p>
-                We've been there. The 3 AM pages that could've waited. The cascading 
-                failures that took days to understand. The dashboards that showed 
-                graphs but not answers.
+              <p className="text-[#a1a1aa] leading-relaxed mb-6">
+                Tagent is building the AI-native SRE layer that observes,
+                understands, and acts on incidents—giving teams superhuman
+                operational capabilities while maintaining full control and
+                transparency.
               </p>
-              <p>
-                Existing tools were built for a different era. They observe and alert 
-                but don't understand. They generate noise instead of signal.
+              <p className="text-[#fafafa] leading-relaxed">
+                We believe the future of operations is{" "}
+                <span className="text-[#10b981]">autonomous but not automatic</span>.
+                AI handles the routine, humans handle the novel. Together,
+                they're unstoppable.
               </p>
             </div>
-          </div>
 
-          <div className="grid md:grid-cols-[1fr_2fr] gap-12 mt-16 pt-16 border-t border-[#1a1a1a]">
-            <h2 className="text-xl font-bold text-[#fafafa]">Our approach</h2>
-            <div className="space-y-4 text-[#666666]">
-              <p>
-                Tagent is AI-native, but not in the buzzword way. It actually understands 
-                your infrastructure—connects the dots between metrics, logs, traces, and 
-                resource states.
-              </p>
-              <p>
-                We're not building a black box. Every decision Tagent makes is explainable. 
-                Every action is auditable. You stay in control while AI handles the routine.
-              </p>
-              <p className="text-[#fafafa]">
-                The goal isn't to replace SREs. It's to give them time for interesting 
-                problems instead of repetitive ones.
-              </p>
+            <div className="card p-8">
+              <div className="text-5xl mb-4">🚀</div>
+              <blockquote className="text-xl text-white font-medium mb-6">
+                "We're not just building another monitoring tool. We're building
+                the intelligent layer that makes all your existing tools work
+                better together."
+              </blockquote>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-[#10b981] flex items-center justify-center text-[#09090b] font-bold">
+                  T
+                </div>
+                <div>
+                  <div className="font-medium text-white">The Tagent Team</div>
+                  <div className="text-sm text-[#71717a]">Founders</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#fafafa] mb-8">
-            What we believe
-          </h2>
-          <ul className="space-y-4">
-            {values.map((value, index) => (
-              <li key={index} className="flex items-start gap-4 text-[#666666]">
-                <span className="text-[#22c55e] font-mono">→</span>
-                <span>{value}</span>
-              </li>
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              What We Believe
+            </h2>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto">
+              Our values guide every product decision we make.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value) => (
+              <div key={value.title} className="card card-hover p-6 group">
+                <div className="feature-icon mb-4">
+                  <value.icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#10b981] transition-colors">
+                  {value.title}
+                </h3>
+                <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                  {value.description}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
       {/* Timeline */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#fafafa] mb-8">
-            So far
-          </h2>
-          <div className="space-y-6">
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Our Journey
+            </h2>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto">
+              From pain point to product. Building the future of Kubernetes
+              operations.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
             {timeline.map((item, index) => (
-              <div key={item.year} className="flex gap-6">
-                <div className="w-16 flex-shrink-0">
-                  <span className="text-[#22c55e] font-mono text-sm">{item.year}</span>
+              <div key={item.year + item.title} className="flex gap-6 mb-8">
+                <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 rounded-lg bg-[#10b981] flex items-center justify-center text-[#09090b] text-sm font-bold">
+                    {item.year}
+                  </div>
+                  {index < timeline.length - 1 && (
+                    <div className="w-px flex-1 bg-[#27272a]" />
+                  )}
                 </div>
-                <div className={index < timeline.length - 1 ? 'pb-6 border-b border-[#1a1a1a]' : ''}>
-                  <h3 className="text-[#fafafa] font-medium mb-1">{item.title}</h3>
-                  <p className="text-[#666666] text-sm">{item.description}</p>
+                <div className="card p-4 flex-1">
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-[#a1a1aa]">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -134,51 +219,114 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Jobs */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#fafafa] mb-2">
-            Join us
-          </h2>
-          <p className="text-[#666666] mb-8">
-            Remote-first. Building something that actually helps people.
-          </p>
-          <div className="space-y-4">
-            {jobs.map((job) => (
-              <div key={job.title} className="border border-[#1a1a1a] p-4 flex items-center justify-between">
-                <div>
-                  <h3 className="text-[#fafafa] font-medium">{job.title}</h3>
-                  <p className="text-[#666666] text-sm">{job.location}</p>
+      {/* Careers */}
+      <section id="careers" className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="text-center mb-12">
+            <div className="badge mb-4">Careers</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Join the Team
+            </h2>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto">
+              We're looking for engineers who are passionate about making
+              operations better. Remote-first, mission-driven, and building
+              something that matters.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
+            {careers.map((job) => (
+              <div key={job.title} className="card card-hover p-6 group">
+                <Briefcase className="w-5 h-5 text-[#10b981] mb-4" />
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#10b981] transition-colors">
+                  {job.title}
+                </h3>
+                <div className="flex items-center gap-3 text-sm text-[#71717a] mb-4">
+                  <span>{job.location}</span>
+                  <span>•</span>
+                  <span>{job.type}</span>
                 </div>
                 <Link href="/contact">
-                  <Button variant="outline" className="border-[#1a1a1a] text-[#fafafa] hover:bg-[#141414] rounded-none">
+                  <Button
+                    variant="outline"
+                    className="w-full h-10 border-[#27272a] text-white hover:bg-[#18181b]"
+                  >
                     Apply
                   </Button>
                 </Link>
               </div>
             ))}
           </div>
-          <p className="text-[#666666] text-sm mt-6">
-            Don't see a fit? <Link href="/contact" className="text-[#22c55e] hover:underline">Reach out anyway</Link>.
-          </p>
+
+          <div className="text-center">
+            <p className="text-[#a1a1aa]">
+              Don't see a role that fits?{" "}
+              <Link href="/contact" className="text-[#10b981] hover:underline">
+                Reach out anyway
+              </Link>
+              —we're always looking for exceptional people.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Open Source */}
+      <section className="section bg-[#0c0c0e]">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="badge mb-4">Open Source</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Built in the Open
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-8">
+              Tagent is open source under the Apache 2.0 license. Contribute,
+              customize, and build on top of it. Join our community of engineers
+              making operations better.
+            </p>
+            <div className="flex items-center justify-center gap-4">
+              <a
+                href="https://github.com/tagent-dev/tagent"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-12 px-8">
+                  Star on GitHub
+                </Button>
+              </a>
+              <Link href="/docs">
+                <Button
+                  variant="outline"
+                  className="h-12 px-8 border-[#27272a] text-white hover:bg-[#18181b]"
+                >
+                  Read the Docs
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#fafafa] mb-4">
-            Questions?
-          </h2>
-          <p className="text-[#666666] mb-6">
-            We're happy to talk about what we're building, how we're building it, 
-            or whether it might work for your team.
-          </p>
-          <Link href="/contact">
-            <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0a0a] font-medium rounded-none">
-              Get in touch
-            </Button>
-          </Link>
+      <section className="section">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Want to Learn More?
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-8">
+              We'd love to share our vision for the future of Kubernetes
+              operations.
+            </p>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-12 px-8"
+              >
+                Get in Touch
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

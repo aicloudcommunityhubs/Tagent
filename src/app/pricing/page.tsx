@@ -1,133 +1,172 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Check, X, ArrowRight } from "lucide-react";
 
-const plans = [
+const tiers = [
   {
     name: "Starter",
     price: "Free",
-    description: "Try it out",
+    description: "For teams getting started with AI-powered operations.",
     features: [
-      "Read-only observation",
-      "AI root cause analysis",
-      "Slack integration",
-      "Basic incident timeline",
-      "Community support",
-      "1 cluster"
+      { text: "Read-only mode", included: true },
+      { text: "AI root cause analysis", included: true },
+      { text: "Slack integration", included: true },
+      { text: "Up to 3 clusters", included: true },
+      { text: "Community support", included: true },
+      { text: "7-day incident history", included: true },
+      { text: "Escalation workflows", included: false },
+      { text: "Auto-remediation", included: false },
     ],
-    cta: "Get started",
+    cta: "Get Started",
+    ctaLink: "/contact",
+    highlight: false,
   },
   {
     name: "Pro",
-    price: "$499",
+    price: "$199",
     period: "/month",
-    description: "For real teams",
+    description: "For teams ready to automate their operations.",
     features: [
-      "Everything in Starter",
-      "Smart escalation",
-      "Risk scoring",
-      "Automated postmortems",
-      "Knowledge graph",
-      "CI/CD integration",
-      "Up to 5 clusters",
-      "Email support"
+      { text: "Everything in Starter", included: true },
+      { text: "Escalation workflows", included: true },
+      { text: "Risk scoring engine", included: true },
+      { text: "Automated postmortems", included: true },
+      { text: "Knowledge graph", included: true },
+      { text: "CI/CD scanning", included: true },
+      { text: "Unlimited clusters", included: true },
+      { text: "Email support", included: true },
     ],
-    cta: "Start trial",
+    cta: "Start Free Trial",
+    ctaLink: "/contact",
     highlight: true,
   },
   {
     name: "Enterprise",
     price: "Custom",
-    description: "For larger orgs",
+    description: "For organizations requiring advanced capabilities.",
     features: [
-      "Everything in Pro",
-      "Auto-remediation",
-      "Compliance mode",
-      "Chaos validation",
-      "Unlimited clusters",
-      "Dedicated support",
-      "Custom integrations",
-      "Self-hosted option"
+      { text: "Everything in Pro", included: true },
+      { text: "Auto-remediation", included: true },
+      { text: "Compliance mode", included: true },
+      { text: "Chaos testing", included: true },
+      { text: "Dedicated support", included: true },
+      { text: "Custom integrations", included: true },
+      { text: "Private deployment", included: true },
+      { text: "SLA guarantee", included: true },
     ],
-    cta: "Contact us",
+    cta: "Contact Sales",
+    ctaLink: "/contact",
+    highlight: false,
   },
 ];
 
 const faqs = [
-  { 
-    q: "Can I try before paying?", 
-    a: "Yes. Starter is free. For Pro/Enterprise features, we offer trials." 
+  {
+    q: "Can I self-host Tagent?",
+    a: "Yes. Tagent is open source and can be self-hosted. The Pro and Enterprise tiers include additional features, integrations, and support.",
   },
-  { 
-    q: "How do clusters work?", 
-    a: "Each Kubernetes cluster counts separately. We have volume pricing for fleets." 
+  {
+    q: "What's included in the free tier?",
+    a: "The Starter tier includes read-only AI analysis, root cause identification, Slack integration, and community support—everything you need to evaluate Tagent.",
   },
-  { 
-    q: "What can auto-remediation do?", 
-    a: "Restart failed pods, scale deployments, clear stuck resources. You approve actions first." 
+  {
+    q: "How does pricing work for multiple clusters?",
+    a: "Starter supports up to 3 clusters. Pro and Enterprise include unlimited clusters. Pricing is per organization, not per cluster.",
   },
-  { 
-    q: "Startup pricing?", 
-    a: "Yes. Discounted rates for early-stage startups and open source projects." 
-  },
-  { 
-    q: "LLM costs?", 
-    a: "Depends on incident volume. Typically $20-100/month in API costs for production environments." 
-  },
-  { 
-    q: "Self-hosted?", 
-    a: "Enterprise plans can run entirely in your infrastructure." 
+  {
+    q: "Is there a free trial for Pro?",
+    a: "Yes. Start a 14-day free trial of Pro with full access to all features. No credit card required.",
   },
 ];
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-20">
       {/* Hero */}
-      <section className="py-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#fafafa] mb-6">
-            Simple pricing.
-          </h1>
-          <p className="text-lg text-[#666666]">
-            Start free. Scale when you're ready. No hidden fees.
-          </p>
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="badge mb-4">Pricing</div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Start free. Scale when ready.
+            </h1>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto leading-relaxed">
+              Tagent is open source and free to self-host. Cloud tiers include
+              managed infrastructure, premium features, and dedicated support.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Plans */}
-      <section className="py-8 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            {plans.map((plan) => (
-              <div 
-                key={plan.name} 
-                className={`p-6 border ${plan.highlight ? 'border-[#22c55e]' : 'border-[#1a1a1a]'}`}
+      {/* Pricing Cards */}
+      <section className="section">
+        <div className="container">
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {tiers.map((tier) => (
+              <div
+                key={tier.name}
+                className={`card p-6 flex flex-col ${
+                  tier.highlight
+                    ? "border-[#10b981] relative"
+                    : ""
+                }`}
               >
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-[#fafafa]">{plan.name}</h3>
-                  <p className="text-[#666666] text-sm">{plan.description}</p>
-                </div>
+                {tier.highlight && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-[#10b981] text-[#09090b] text-xs font-semibold px-3 py-1 rounded-full">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
                 <div className="mb-6">
-                  <span className="text-3xl font-bold text-[#fafafa]">{plan.price}</span>
-                  {plan.period && <span className="text-[#666666]">{plan.period}</span>}
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {tier.name}
+                  </h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-white">
+                      {tier.price}
+                    </span>
+                    {tier.period && (
+                      <span className="text-[#71717a]">{tier.period}</span>
+                    )}
+                  </div>
+                  <p className="text-sm text-[#a1a1aa] mt-2">
+                    {tier.description}
+                  </p>
                 </div>
-                <ul className="space-y-2 mb-6">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="text-sm text-[#666666] flex items-start gap-2">
-                      <span className="text-[#22c55e]">+</span>
-                      {feature}
+
+                <ul className="space-y-3 flex-1 mb-6">
+                  {tier.features.map((feature) => (
+                    <li
+                      key={feature.text}
+                      className="flex items-center gap-3 text-sm"
+                    >
+                      {feature.included ? (
+                        <Check className="w-4 h-4 text-[#10b981] flex-shrink-0" />
+                      ) : (
+                        <X className="w-4 h-4 text-[#52525b] flex-shrink-0" />
+                      )}
+                      <span
+                        className={
+                          feature.included ? "text-white" : "text-[#52525b]"
+                        }
+                      >
+                        {feature.text}
+                      </span>
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact">
-                  <Button 
-                    className={`w-full rounded-none ${
-                      plan.highlight 
-                        ? 'bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0a0a]' 
-                        : 'bg-[#141414] hover:bg-[#1a1a1a] text-[#fafafa]'
+
+                <Link href={tier.ctaLink}>
+                  <Button
+                    className={`w-full h-10 ${
+                      tier.highlight
+                        ? "bg-[#10b981] hover:bg-[#059669] text-[#09090b]"
+                        : "bg-[#18181b] hover:bg-[#27272a] text-white border border-[#27272a]"
                     }`}
                   >
-                    {plan.cta}
+                    {tier.cta}
                   </Button>
                 </Link>
               </div>
@@ -136,61 +175,99 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Enterprise extras */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#fafafa] mb-6">
-            Enterprise includes
-          </h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              "Private cloud / on-premise",
-              "SSO/SAML",
-              "Custom RBAC",
-              "Dedicated success manager",
-              "Priority support SLA",
-              "Custom training"
-            ].map((item) => (
-              <div key={item} className="text-[#666666] text-sm flex items-center gap-2">
-                <span className="text-[#22c55e]">+</span>
-                {item}
-              </div>
-            ))}
+      {/* Open Source Banner */}
+      <section className="section bg-[#0c0c0e] border-t border-b border-[#27272a]">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Open Source Core
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-6">
+              Tagent's core functionality is open source under the Apache 2.0
+              license. Self-host for free, contribute to the project, or build
+              on top of it.
+            </p>
+            <div className="flex items-center justify-center gap-4">
+              <a
+                href="https://github.com/tagent-dev/tagent"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="h-12 px-6 border-[#27272a] text-white hover:bg-[#18181b]"
+                >
+                  View on GitHub
+                </Button>
+              </a>
+              <Link href="/docs">
+                <Button
+                  variant="outline"
+                  className="h-12 px-6 border-[#27272a] text-white hover:bg-[#18181b]"
+                >
+                  Self-Host Guide
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-[#fafafa] mb-8">
-            Common questions
-          </h2>
-          <div className="space-y-6">
-            {faqs.map((faq) => (
-              <div key={faq.q}>
-                <h3 className="text-[#fafafa] font-medium mb-1">{faq.q}</h3>
-                <p className="text-[#666666] text-sm">{faq.a}</p>
-              </div>
-            ))}
+      <section className="section">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
+              Frequently Asked Questions
+            </h2>
+
+            <div className="space-y-4">
+              {faqs.map((item) => (
+                <div key={item.q} className="card p-6">
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {item.q}
+                  </h3>
+                  <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                    {item.a}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#fafafa] mb-4">
-            Ready?
-          </h2>
-          <p className="text-[#666666] mb-6">
-            Start with free. No credit card. 15 minutes to set up.
-          </p>
-          <Link href="/contact">
-            <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0a0a] font-medium rounded-none">
-              Get started
-            </Button>
-          </Link>
+      <section className="section border-t border-[#27272a]">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to get started?
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-8">
+              Start with the free tier or talk to our team about your needs.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-12 px-8"
+                >
+                  Start Free Trial
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 px-8 border-[#27272a] text-white hover:bg-[#18181b]"
+                >
+                  Contact Sales
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

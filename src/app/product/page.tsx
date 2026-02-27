@@ -1,193 +1,182 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Brain,
+  Network,
+  Shield,
+  Zap,
+  AlertTriangle,
+  Target,
+  GitBranch,
+  Moon,
+  FileSearch,
+  Clock,
+  Activity,
+  MessageSquare,
+  Cpu,
+  ArrowRight,
+} from "lucide-react";
 
-const capabilities = [
+const coreFeatures = [
   {
-    title: "Root cause analysis",
-    description: "Stop digging through dashboards at 2 AM. Tagent correlates metrics, logs, and traces to tell you what's actually broken.",
-    details: [
-      "Multi-signal correlation",
-      "Service dependency awareness",
-      "Historical pattern matching",
-      "Actually useful suggestions"
-    ]
+    icon: Brain,
+    title: "AI Root Cause Analysis",
+    description:
+      "Tagent's AI understands your system's architecture and relationships. When incidents occur, it automatically correlates metrics, logs, and traces to identify the actual root cause—not just symptoms. Get explanations in plain English, not just charts.",
+    highlights: [
+      "Correlates metrics, logs, and traces automatically",
+      "Understands service dependencies",
+      "Explains findings in natural language",
+      "Learns from past incidents",
+    ],
   },
   {
-    title: "Incident memory",
-    description: "Every resolved incident makes Tagent smarter. The next time something similar happens, it knows what to do.",
-    details: [
-      "Pattern extraction from past incidents",
-      "Team knowledge capture",
-      "Cross-cluster learning",
-      "No wiki required"
-    ]
+    icon: GitBranch,
+    title: "Incident Memory & Learning Engine",
+    description:
+      "Every resolved incident makes Tagent smarter. Build institutional knowledge without the wiki nobody updates. The learning engine captures patterns, successful remediations, and team decisions.",
+    highlights: [
+      "Captures incident patterns automatically",
+      "Builds knowledge graph from resolutions",
+      "No manual documentation required",
+      "Improves with every incident",
+    ],
   },
   {
-    title: "Knowledge graph",
-    description: "A living map of your system. See dependencies, track impact chains, understand what connects to what.",
-    details: [
-      "Real-time service topology",
+    icon: Network,
+    title: "Incident Knowledge Graph",
+    description:
+      "Tagent builds and maintains a living map of your system's relationships. Visualize dependencies, understand impact chains, and see how changes propagate through your infrastructure.",
+    highlights: [
+      "Auto-generated service topology",
       "Dependency visualization",
       "Impact chain analysis",
-      "Version tracking"
-    ]
+      "Historical relationship tracking",
+    ],
   },
   {
-    title: "Smart escalation",
-    description: "The right person gets notified with full context. No more \"what's happening?\" ping-pong.",
-    details: [
-      "Context-aware routing",
-      "PagerDuty/Opsgenie integration",
-      "Rich notifications",
-      "Escalation policies that make sense"
-    ]
+    icon: AlertTriangle,
+    title: "Smart Escalation Engine",
+    description:
+      "Not every incident needs a human. Tagent's escalation engine knows when to handle things automatically and when to wake someone up. Configurable rules ensure the right people get notified at the right time.",
+    highlights: [
+      "Configurable escalation policies",
+      "Intelligent severity assessment",
+      "Reduces alert fatigue by 89%",
+      "Context-rich notifications",
+    ],
+  },
+];
+
+const advancedFeatures = [
+  {
+    icon: Shield,
+    title: "Controlled Auto-Remediation",
+    description:
+      "Start in recommendation mode. When you're confident, enable automated actions. Full audit trails, instant rollbacks, and human-in-the-loop by design.",
   },
   {
-    title: "Auto-remediation",
-    description: "Start read-only. When you trust it, enable automated fixes for known issues. You control the blast radius.",
-    details: [
-      "Human-in-the-loop by default",
-      "Rollback on failure",
-      "Blast radius constraints",
-      "Approval workflows"
-    ]
+    icon: Target,
+    title: "Blast Radius Simulation",
+    description:
+      "Predict the impact of changes before deployment. Understand cascading failure patterns and identify single points of failure proactively.",
   },
   {
-    title: "Risk scoring",
-    description: "Real-time risk assessment for your cluster. Know what's likely to break before it does.",
-    details: [
-      "Continuous evaluation",
-      "Business impact weighting",
-      "Trend analysis",
-      "Proactive alerts"
-    ]
+    icon: Zap,
+    title: "Risk Scoring Engine",
+    description:
+      "Real-time risk assessment for your entire cluster. Prioritize what matters most with intelligent scoring based on system health, recent changes, and historical patterns.",
   },
   {
-    title: "CI/CD gates",
-    description: "Catch issues before they reach production. Integrate risk checks into your deployment pipeline.",
-    details: [
-      "Pre-flight checks",
-      "Deployment gates",
-      "Rollback probability",
-      "Resource conflict detection"
-    ]
+    icon: Activity,
+    title: "Preventive CI/CD Scanning",
+    description:
+      "Scan deployments before they go live. Identify potential risks, configuration drift, and compliance violations in your pipeline.",
   },
   {
-    title: "Auto postmortems",
-    description: "Generate incident reports automatically. Timeline, root cause, action items—without the manual work.",
-    details: [
-      "Auto-generated timelines",
-      "Contributing factor analysis",
-      "Action item suggestions",
-      "Custom templates"
-    ]
+    icon: FileSearch,
+    title: "Automated Postmortems",
+    description:
+      "Generate comprehensive postmortem reports automatically. Include timeline, root cause, impact analysis, and actionable recommendations.",
   },
   {
-    title: "Natural language queries",
-    description: "Ask questions about your infrastructure in plain English. Get real answers from your actual data.",
-    details: [
-      "Conversational interface",
-      "Runbook integration",
-      "Knowledge base search",
-      "Multi-turn reasoning"
-    ]
+    icon: Cpu,
+    title: "Chaos Validation Mode",
+    description:
+      "Validate your remediation playbooks with controlled chaos experiments. Ensure your automated responses work when you need them.",
   },
   {
-    title: "Night Guardian",
-    description: "Off-hours mode. Tagent handles routine incidents and sends you a summary in the morning. Sleep happens.",
-    details: [
-      "Off-hours automation",
-      "Smart alert filtering",
-      "Morning briefings",
-      "Safety guardrails"
-    ]
+    icon: MessageSquare,
+    title: "Interactive AI Documentation Q&A",
+    description:
+      "Ask questions about your infrastructure in natural language. Tagent can explain configurations, recent changes, and incident history.",
   },
   {
-    title: "Compliance logging",
-    description: "Audit trails for everything. Meet regulatory requirements without extra work.",
-    details: [
-      "Full audit log",
-      "Compliance dashboards",
-      "Access control",
-      "Regulatory reporting"
-    ]
-  },
-  {
-    title: "Chaos validation",
-    description: "Test your resilience with controlled failure injection. Verify that detection and remediation actually work.",
-    details: [
-      "Controlled experiments",
-      "Resilience scoring",
-      "Recovery validation",
-      "Game day automation"
-    ]
+    icon: Moon,
+    title: "Night Guardian Mode",
+    description:
+      "Sleep through the night. Tagent handles routine incidents autonomously and sends you a morning briefing. Only wake for critical issues.",
   },
 ];
 
 export default function ProductPage() {
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-20">
       {/* Hero */}
-      <section className="py-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#fafafa] mb-6">
-            Everything you need for
-            <br />
-            Kubernetes operations.
-          </h1>
-          <p className="text-lg text-[#666666] mb-8 max-w-xl">
-            Tagent observes, understands, and acts on incidents. 
-            Your team focuses on building instead of firefighting.
-          </p>
-          <div className="flex gap-3">
-            <Link href="/contact">
-              <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0a0a] font-medium rounded-none">
-                Request access
-              </Button>
-            </Link>
-            <Link href="/docs">
-              <Button variant="outline" className="border-[#1a1a1a] text-[#fafafa] hover:bg-[#141414] rounded-none">
-                Documentation
-              </Button>
-            </Link>
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="max-w-3xl">
+            <div className="badge mb-4">Product</div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Core Capabilities
+            </h1>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl leading-relaxed">
+              Tagent combines AI-powered analysis with production-safe
+              automation. Every feature is designed with one goal: make your
+              team more effective without sacrificing control.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Capabilities */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#fafafa] mb-2">
-            What's included
-          </h2>
-          <p className="text-[#666666] mb-8">
-            Built for production. Designed to be trusted.
-          </p>
-          
-          <div className="space-y-8">
-            {capabilities.map((cap, index) => (
-              <div 
-                key={cap.title} 
-                className={`py-8 ${index < capabilities.length - 1 ? 'border-b border-[#1a1a1a]' : ''}`}
+      {/* Core Features */}
+      <section className="section">
+        <div className="container">
+          <div className="space-y-16">
+            {coreFeatures.map((feature, index) => (
+              <div
+                key={feature.title}
+                className={`grid lg:grid-cols-2 gap-12 items-center ${
+                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                }`}
               >
-                <div className="flex flex-col md:flex-row md:items-start gap-4">
-                  <div className="md:w-1/3">
-                    <h3 className="text-lg font-semibold text-[#fafafa]">
-                      {cap.title}
-                    </h3>
+                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
+                  <div className="feature-icon mb-4">
+                    <feature.icon className="w-5 h-5" />
                   </div>
-                  <div className="md:w-2/3">
-                    <p className="text-[#666666] mb-4">
-                      {cap.description}
-                    </p>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {cap.details.map((detail) => (
-                        <li key={detail} className="text-sm text-[#666666] flex items-center gap-2">
-                          <span className="text-[#22c55e]">+</span>
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                    {feature.title}
+                  </h2>
+                  <p className="text-[#a1a1aa] leading-relaxed mb-6">
+                    {feature.description}
+                  </p>
+                  <ul className="space-y-3">
+                    {feature.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex items-center gap-3 text-sm text-[#a1a1aa]"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={index % 2 === 1 ? "lg:order-1" : ""}>
+                  <div className="card p-8">
+                    <div className="h-48 bg-gradient-to-br from-[#18181b] to-[#0c0c0e] rounded-lg flex items-center justify-center border border-[#27272a]">
+                      <feature.icon className="w-16 h-16 text-[#10b981] opacity-50" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -196,64 +185,68 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Technical details */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a] bg-[#0a0a0a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#fafafa] mb-6">
-            How it's built
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8 text-[#666666] text-sm">
-            <div>
-              <h3 className="text-[#fafafa] font-medium mb-2">Architecture</h3>
-              <p>
-                Tagent runs in your cluster as a set of controllers and agents. 
-                It observes resources, collects metrics, and maintains a knowledge graph. 
-                No data leaves your environment unless you want it to.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-[#fafafa] font-medium mb-2">Security model</h3>
-              <p>
-                Read-only by default. Write permissions are scoped to specific namespaces 
-                and resources. Every action is logged. You can audit everything Tagent does 
-                and roll back any change.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-[#fafafa] font-medium mb-2">AI approach</h3>
-              <p>
-                We use a combination of rule-based reasoning and LLMs. Rules handle the 
-                deterministic stuff. LLMs handle the fuzzy, contextual interpretation. 
-                Every AI decision is explainable.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-[#fafafa] font-medium mb-2">Data handling</h3>
-              <p>
-                Metrics, logs, and traces stay in your stack. Tagent builds its knowledge 
-                graph locally. For LLM features, you can use our hosted models or bring 
-                your own.
-              </p>
-            </div>
+      {/* Advanced Features */}
+      <section className="section bg-[#0c0c0e] border-t border-b border-[#27272a]">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Advanced Capabilities
+            </h2>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl mx-auto">
+              Enterprise features that scale with your needs.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {advancedFeatures.map((feature) => (
+              <div key={feature.title} className="card card-hover p-6 group">
+                <div className="feature-icon mb-4">
+                  <feature.icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#10b981] transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-2xl font-bold text-[#fafafa] mb-4">
-            See it in action
-          </h2>
-          <p className="text-[#666666] mb-6">
-            We'll show you how Tagent works with your specific setup. 
-            No generic demos—just your stack, your problems, real solutions.
-          </p>
-          <Link href="/contact">
-            <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0a0a] font-medium rounded-none">
-              Schedule a demo
-            </Button>
-          </Link>
+      <section className="section">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              See Tagent in action
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-8">
+              Get a personalized demo and see how Tagent can transform your
+              Kubernetes operations.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-12 px-8"
+                >
+                  Request Demo
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/architecture">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 px-8 border-[#27272a] text-white hover:bg-[#18181b]"
+                >
+                  View Architecture
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

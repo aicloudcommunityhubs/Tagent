@@ -2,138 +2,238 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { ArrowRight, Mail, Calendar, MessageSquare } from "lucide-react";
 
-const emails = [
-  { label: "General", address: "hello@tagent.io" },
-  { label: "Early access", address: "early@tagent.io" },
-  { label: "Demo", address: "demo@tagent.io" },
-  { label: "Partnerships", address: "partners@tagent.io" },
+const contactOptions = [
+  {
+    icon: Mail,
+    title: "General Inquiry",
+    description: "Questions about Tagent, partnerships, or anything else.",
+    email: "hello@tagent.io",
+  },
+  {
+    icon: Calendar,
+    title: "Book a Demo",
+    description: "See Tagent in action with a personalized walkthrough.",
+    email: "demo@tagent.io",
+  },
+  {
+    icon: MessageSquare,
+    title: "Sales",
+    description: "Discuss enterprise plans and custom solutions.",
+    email: "sales@tagent.io",
+  },
 ];
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("done");
-    setForm({ name: "", email: "", company: "", message: "" });
+    // In a real app, this would send to an API
+    setSubmitted(true);
   };
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-20">
       {/* Hero */}
-      <section className="py-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#fafafa] mb-6">
-            Say hello.
-          </h1>
-          <p className="text-lg text-[#666666]">
-            Questions? Want a demo? Just want to chat about Kubernetes ops? 
-            We read everything and respond within a day or two.
-          </p>
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="max-w-3xl">
+            <div className="badge mb-4">Contact</div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Let's Talk
+            </h1>
+            <p className="text-lg text-[#a1a1aa] max-w-2xl leading-relaxed">
+              Have questions about Tagent? Want to see a demo? We're here to
+              help. Fill out the form below or reach out directly.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Email addresses */}
-      <section className="py-8 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-sm text-[#666666] mb-4">Or email us directly:</p>
-          <div className="flex flex-wrap gap-4">
-            {emails.map((e) => (
-              <a 
-                key={e.label}
-                href={`mailto:${e.address}`}
-                className="text-sm border border-[#1a1a1a] px-3 py-2 text-[#666666] hover:text-[#fafafa] hover:border-[#22c55e]"
-              >
-                {e.label}: <span className="text-[#fafafa]">{e.address}</span>
-              </a>
+      {/* Contact Options */}
+      <section className="section border-b border-[#27272a]">
+        <div className="container">
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {contactOptions.map((option) => (
+              <div key={option.title} className="card card-hover p-6 group">
+                <div className="feature-icon mb-4">
+                  <option.icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#10b981] transition-colors">
+                  {option.title}
+                </h3>
+                <p className="text-sm text-[#a1a1aa] mb-4">
+                  {option.description}
+                </p>
+                <a
+                  href={`mailto:${option.email}`}
+                  className="text-sm text-[#10b981] hover:underline"
+                >
+                  {option.email}
+                </a>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Form */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-xl font-bold text-[#fafafa] mb-6">
-            Send a message
-          </h2>
+      {/* Contact Form */}
+      <section className="section">
+        <div className="container">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+              Send a Message
+            </h2>
 
-          {status === "done" ? (
-            <div className="border border-[#22c55e] p-6">
-              <p className="text-[#fafafa] font-medium mb-1">Got it.</p>
-              <p className="text-[#666666] text-sm">We'll get back to you soon.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+            {submitted ? (
+              <div className="card p-8 text-center">
+                <div className="w-16 h-16 rounded-full bg-[#10b981]/20 flex items-center justify-center mx-auto mb-4">
+                  <ArrowRight className="w-8 h-8 text-[#10b981]" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  Message Sent
+                </h3>
+                <p className="text-[#a1a1aa]">
+                  Thanks for reaching out. We'll get back to you within 24
+                  hours.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="card p-8 space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-white mb-2"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      value={formState.name}
+                      onChange={(e) =>
+                        setFormState({ ...formState, name: e.target.value })
+                      }
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-white mb-2"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formState.email}
+                      onChange={(e) =>
+                        setFormState({ ...formState, email: e.target.value })
+                      }
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-sm text-[#666666] mb-2">Name</label>
-                  <Input
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="h-10 bg-[#0a0a0a] border-[#1a1a1a] text-[#fafafa] rounded-none"
+                  <label
+                    htmlFor="company"
+                    className="block text-sm font-medium text-white mb-2"
+                  >
+                    Company
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    value={formState.company}
+                    onChange={(e) =>
+                      setFormState({ ...formState, company: e.target.value })
+                    }
+                    placeholder="Your company (optional)"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-sm text-[#666666] mb-2">Email</label>
-                  <Input
-                    type="email"
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-white mb-2"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
                     required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="h-10 bg-[#0a0a0a] border-[#1a1a1a] text-[#fafafa] rounded-none"
+                    rows={5}
+                    value={formState.message}
+                    onChange={(e) =>
+                      setFormState({ ...formState, message: e.target.value })
+                    }
+                    placeholder="Tell us about your Kubernetes environment, what challenges you're facing, or any questions you have..."
                   />
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm text-[#666666] mb-2">Company</label>
-                <Input
-                  value={form.company}
-                  onChange={(e) => setForm({ ...form, company: e.target.value })}
-                  className="h-10 bg-[#0a0a0a] border-[#1a1a1a] text-[#fafafa] rounded-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-[#666666] mb-2">Message</label>
-                <Textarea
-                  required
-                  rows={5}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="bg-[#0a0a0a] border-[#1a1a1a] text-[#fafafa] rounded-none resize-none"
-                />
-              </div>
-              <Button
-                type="submit"
-                disabled={status === "loading"}
-                className="bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0a0a] font-medium rounded-none"
-              >
-                {status === "loading" ? "Sending..." : "Send"}
-              </Button>
-            </form>
-          )}
+
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-[#71717a]">
+                    We'll respond within 24 hours.
+                  </p>
+                  <Button
+                    type="submit"
+                    className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-11 px-8"
+                  >
+                    Send Message
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* Info */}
-      <section className="py-16 px-6 border-t border-[#1a1a1a]">
-        <div className="max-w-3xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-[#fafafa] font-medium mb-2">Response time</h3>
-              <p className="text-[#666666] text-sm">Usually within 24 hours. Sometimes faster.</p>
-            </div>
-            <div>
-              <h3 className="text-[#fafafa] font-medium mb-2">Location</h3>
-              <p className="text-[#666666] text-sm">Remote-first. Team members in US, EU, and APAC.</p>
-            </div>
+      {/* Early Access */}
+      <section className="section bg-[#0c0c0e] border-t border-[#27272a]">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Join the Early Access Program
+            </h2>
+            <p className="text-lg text-[#a1a1aa] mb-8">
+              Be among the first to experience autonomous Kubernetes operations.
+              Early access includes priority support and direct access to the
+              founding team.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Thanks for signing up! We'll be in touch soon.");
+              }}
+              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                className="flex-1"
+              />
+              <Button className="bg-[#10b981] hover:bg-[#059669] text-[#09090b] font-medium h-11 px-6 whitespace-nowrap">
+                Request Access
+              </Button>
+            </form>
+            <p className="text-sm text-[#71717a] mt-4">
+              No spam, ever. We respect your privacy.
+            </p>
           </div>
         </div>
       </section>
