@@ -7,9 +7,9 @@
 FROM oven/bun:1.3.4-alpine AS deps
 WORKDIR /app
 
-# Install dependencies only (for better caching)
+# Install dependencies (including devDependencies for build)
 COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile --production
+RUN bun install --frozen-lockfile
 
 # Stage 2: Builder
 FROM oven/bun:1.3.4-alpine AS builder
@@ -34,6 +34,9 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# Install curl for health check
+RUN apk add --no-cache curl
 
 # Create non-root user for security
 RUN addgroup --system --gid 1001 nodejs
