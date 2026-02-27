@@ -128,7 +128,7 @@ jobs:
       - name: 🔐 Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKE_HUB_USERNAME }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: 🏗️ Build and push Docker image
@@ -138,15 +138,15 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKE_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
-            ${{ secrets.DOCKE_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: ✅ Image pushed
         run: |
           echo "🐳 Docker image pushed successfully!"
-          echo "📦 Image: ${{ secrets.DOCKE_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest"
+          echo "📦 Image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest"
 
   # ==========================================
   # Job 5: Build Static Site for GitHub Pages
