@@ -9,7 +9,6 @@
 
 # Dependencies
 node_modules
-bun.lock
 
 # Build outputs
 .next
