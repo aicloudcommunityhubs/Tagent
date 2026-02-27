@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Github, Twitter, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,9 +51,11 @@ export function Navbar() {
               className="relative w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-[#818cf8] to-[#a78bfa] p-px"
             >
               <div className="w-full h-full rounded-xl bg-[#0a0a0f] flex items-center justify-center">
-                <img
+                <Image
                   src="/tagent-logo.png"
                   alt="Tagent"
+                  width={32}
+                  height={32}
                   className="w-8 h-8 object-contain"
                 />
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Github, Twitter, Linkedin, Rocket } from "lucide-react";
 
@@ -48,9 +49,11 @@ export function Footer() {
               <Link href="/" className="flex items-center gap-3 mb-4">
                 <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#818cf8] to-[#a78bfa] p-px">
                   <div className="w-full h-full rounded-xl bg-[#0a0a0f] flex items-center justify-center">
-                    <img
+                    <Image
                       src="/tagent-logo.png"
                       alt="Tagent"
+                      width={32}
+                      height={32}
                       className="w-8 h-8 object-contain"
                     />
                   </div>
