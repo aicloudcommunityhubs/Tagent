@@ -1,31 +1,21 @@
-'use client'
+import { Hero3D } from "@/components/home/Hero3D";
+import { Problems3D } from "@/components/home/Problems3D";
+import { Solution3D } from "@/components/home/Solution3D";
+import { Features3D } from "@/components/home/Features3D";
+import { NightGuardian3D } from "@/components/home/NightGuardian3D";
+import { Testimonials3D } from "@/components/home/Testimonials3D";
+import { CTA3D } from "@/components/home/CTA3D";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      gap: '2rem',
-      padding: '1rem'
-    }}>
-      <div style={{
-        position: 'relative',
-        width: '6rem',
-        height: '6rem'
-      }}>
-        <img
-          src="/logo.svg"
-          alt="Z.ai Logo"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain'
-          }}
-        />
-      </div>
-    </div>
-  )
+    <>
+      <Hero3D />
+      <Problems3D />
+      <Solution3D />
+      <Features3D />
+      <NightGuardian3D />
+      <Testimonials3D />
+      <CTA3D />
+    </>
+  );
 }
