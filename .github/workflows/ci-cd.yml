@@ -14,6 +14,7 @@ on:
 
 env:
   BUN_VERSION: "1.3.4"
+  DOCKER_IMAGE: tagent-web
 
 # Sets permissions for GitHub Pages deployment
 permissions:
@@ -57,7 +58,7 @@ jobs:
   build:
     name: 🏗️ Build Application
     runs-on: ubuntu-latest
-    needs: lint  # Only runs if lint passes
+    needs: lint
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -92,7 +93,7 @@ jobs:
   security:
     name: 🔒 Security Scan
     runs-on: ubuntu-latest
-    needs: lint  # Runs after lint, parallel with build
+    needs: lint
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -110,12 +111,13 @@ jobs:
         continue-on-error: true
 
   # ==========================================
-  # Job 4: Docker Build Test
+  # Job 4: Build & Push Docker Image to Docker Hub
   # ==========================================
   docker:
-    name: 🐳 Docker Build
+    name: 🐳 Docker Build & Push
     runs-on: ubuntu-latest
-    needs: [build, security]  # Only if both pass
+    needs: [build, security]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -123,15 +125,28 @@ jobs:
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: 🏗️ Build Docker image
+      - name: 🔐 Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKE_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: 🏗️ Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
-          push: false
-          tags: tagent-web:${{ github.sha }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKE_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
+            ${{ secrets.DOCKE_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: ✅ Image pushed
+        run: |
+          echo "🐳 Docker image pushed successfully!"
+          echo "📦 Image: ${{ secrets.DOCKE_HUB_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest"
 
   # ==========================================
   # Job 5: Build Static Site for GitHub Pages
@@ -139,7 +154,7 @@ jobs:
   build-pages:
     name: 📄 Build Static Site
     runs-on: ubuntu-latest
-    needs: [build, security]  # Only if both pass
+    needs: [build, security]
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -169,7 +184,7 @@ jobs:
   deploy-pages:
     name: 🚀 Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    needs: build-pages  # Only if static build passes
+    needs: build-pages
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
@@ -178,49 +193,3 @@ jobs:
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  # ==========================================
-  # Job 7: Push Docker Image (On Release)
-  # ==========================================
-  push-docker:
-    name: 📦 Push Docker Image
-    runs-on: ubuntu-latest
-    needs: docker
-    if: github.event_name == 'release'
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-
-      - name: 🐳 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: 🔐 Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🏷️ Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/${{ github.repository }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha,prefix=sha-
-
-      - name: 🏗️ Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
