@@ -1,86 +1,121 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { Check, ArrowRight, Sparkles, Building2, HelpCircle, Shield, Users, Clock, Heart } from "lucide-react";
+import { motion } from "framer-motion";
+import { Check, ArrowRight, HelpCircle, Shield, Users, Clock, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CTA3D } from "@/components/home/CTA3D";
 
 const plans = [
   {
     name: "Starter",
     price: "Free",
-    description: "Perfect for exploring Tagent's capabilities",
-    features: ["Read-only observation mode", "AI root cause analysis", "Slack integration", "Basic incident timeline", "Community support", "1 cluster"],
-    cta: { text: "Get Started Free", href: "/contact" },
+    description: "Explore Tagent's capabilities",
+    features: [
+      "Read-only observation mode",
+      "AI root cause analysis",
+      "Slack integration",
+      "Basic incident timeline",
+      "Community support",
+      "1 cluster"
+    ],
+    cta: { text: "Get started", href: "/contact" },
   },
   {
     name: "Pro",
     price: "$499",
-    description: "For teams ready to operationalize AI-driven incident management",
-    features: ["Everything in Starter", "Smart escalation workflows", "Risk scoring engine", "Automated postmortems", "Incident knowledge graph", "CI/CD integration", "Up to 5 clusters", "Email support"],
+    period: "/month",
+    description: "For teams ready to operationalize AI",
+    features: [
+      "Everything in Starter",
+      "Smart escalation workflows",
+      "Risk scoring engine",
+      "Automated postmortems",
+      "Incident knowledge graph",
+      "CI/CD integration",
+      "Up to 5 clusters",
+      "Email support"
+    ],
     highlighted: true,
-    badge: "Most Popular",
-    cta: { text: "Start Pro Trial", href: "/contact" },
+    cta: { text: "Start trial", href: "/contact" },
   },
   {
     name: "Enterprise",
     price: "Custom",
-    description: "For organizations requiring advanced capabilities and support",
-    features: ["Everything in Pro", "Controlled auto-remediation", "Compliance & security mode", "Chaos validation", "Unlimited clusters", "Dedicated support", "Custom integrations", "Private deployment", "SLA guarantee"],
-    cta: { text: "Contact Sales", href: "/contact" },
+    description: "For organizations with advanced needs",
+    features: [
+      "Everything in Pro",
+      "Controlled auto-remediation",
+      "Compliance & security mode",
+      "Chaos validation",
+      "Unlimited clusters",
+      "Dedicated support",
+      "Custom integrations",
+      "Private deployment"
+    ],
+    cta: { text: "Contact sales", href: "/contact" },
   },
 ];
 
 const faqs = [
-  { q: "Can I try Tagent before committing?", a: "Yes! The Starter plan is free and lets you explore Tagent's core capabilities. For Pro and Enterprise features, we offer trial periods." },
-  { q: "How does cluster counting work?", a: "A cluster is a single Kubernetes cluster. If you have multiple clusters in different environments, each counts separately. We offer volume pricing for larger fleets." },
-  { q: "What's included in auto-remediation?", a: "Auto-remediation includes safe, pre-approved actions like restarting failed pods, scaling deployments, and clearing stuck resources. You maintain full control through approval workflows." },
-  { q: "Do you offer discounts for startups?", a: "Yes! We offer special pricing for early-stage startups and open source projects. Contact us to learn more about our startup program." },
-  { q: "What LLM costs should I expect?", a: "LLM costs depend on your incident volume and chosen provider. For typical production environments, expect $20-100/month in additional LLM API costs." },
-  { q: "Can I self-host Tagent?", a: "Yes, Enterprise plans include self-hosted deployment options. This allows you to run Tagent entirely within your infrastructure." },
+  { 
+    q: "Can I try before committing?", 
+    a: "Yes. The Starter plan is free and lets you explore Tagent's core capabilities. For Pro and Enterprise features, we offer trial periods." 
+  },
+  { 
+    q: "How does cluster counting work?", 
+    a: "A cluster is a single Kubernetes cluster. If you have multiple clusters in different environments, each counts separately. We offer volume pricing for larger fleets." 
+  },
+  { 
+    q: "What's included in auto-remediation?", 
+    a: "Auto-remediation includes safe, pre-approved actions like restarting failed pods, scaling deployments, and clearing stuck resources. You maintain full control through approval workflows." 
+  },
+  { 
+    q: "Do you offer startup discounts?", 
+    a: "Yes. We offer special pricing for early-stage startups and open source projects. Contact us to learn more." 
+  },
+  { 
+    q: "What about LLM costs?", 
+    a: "LLM costs depend on your incident volume and chosen provider. For typical production environments, expect $20-100/month in additional LLM API costs." 
+  },
+  { 
+    q: "Can I self-host?", 
+    a: "Yes, Enterprise plans include self-hosted deployment options. Run Tagent entirely within your infrastructure." 
+  },
 ];
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-16">
       {/* Hero */}
-      <section className="relative py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[#030305]" />
-        <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#818cf8]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#a78bfa]/10 rounded-full blur-3xl" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
+            transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8">
-              <Sparkles className="w-4 h-4 text-[#a78bfa]" />
-              <span className="text-sm text-[#a1a1aa]">Pricing</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 tracking-tight">
-              Simple, <span className="gradient-text">Transparent</span> Pricing
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Simple pricing.
+              <br />
+              <span className="text-neutral-400">No surprises.</span>
             </h1>
-            <p className="text-xl text-[#71717a] max-w-3xl mx-auto">
-              Start free, scale as you grow. No hidden fees, no surprises.
+            <p className="text-lg text-neutral-400 max-w-2xl">
+              Start free, scale as you grow. No hidden fees, no credit card 
+              required for the Starter plan.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Features Bar */}
-      <section className="py-8 bg-[#030305] border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Trust indicators */}
+      <section className="py-8 px-6 border-y border-white/5">
+        <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: Shield, title: "SOC 2 Compliant", desc: "Enterprise security" },
-              { icon: Users, title: "Team Collaboration", desc: "Built for SRE teams" },
-              { icon: Clock, title: "99.9% SLA", desc: "Enterprise reliability" },
-              { icon: Heart, title: "Expert Support", desc: "Dedicated success team" },
+              { icon: Shield, title: "SOC 2", desc: "Compliant" },
+              { icon: Users, title: "Team", desc: "Collaboration" },
+              { icon: Clock, title: "99.9%", desc: "SLA" },
+              { icon: Heart, title: "Expert", desc: "Support" },
             ].map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -90,14 +125,10 @@ export default function PricingPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex items-center gap-3"
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#818cf8] to-[#a78bfa] p-px">
-                  <div className="w-full h-full rounded-lg bg-[#030305] flex items-center justify-center">
-                    <feature.icon className="w-5 h-5 text-white" />
-                  </div>
-                </div>
+                <feature.icon className="w-5 h-5 text-amber-500" />
                 <div>
                   <div className="text-sm font-medium text-white">{feature.title}</div>
-                  <div className="text-xs text-[#52525b]">{feature.desc}</div>
+                  <div className="text-xs text-neutral-500">{feature.desc}</div>
                 </div>
               </motion.div>
             ))}
@@ -106,165 +137,149 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-24 bg-[#030305]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {plans.map((plan, index) => (
               <motion.div
                 key={plan.name}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative"
+                className={`p-6 rounded-lg border ${
+                  plan.highlighted 
+                    ? "bg-neutral-900 border-amber-500/30" 
+                    : "bg-neutral-900/50 border-white/5"
+                }`}
               >
-                {/* Highlight glow */}
-                {plan.highlighted && (
-                  <div className="absolute -inset-px bg-gradient-to-b from-[#818cf8] to-[#a78bfa] rounded-2xl opacity-20 blur-xl" />
-                )}
-                
-                <div className={`relative h-full p-8 rounded-2xl ${plan.highlighted ? "border-gradient" : "glass-card"}`}>
-                  {/* Badge */}
-                  {plan.badge && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="px-4 py-1 rounded-full bg-gradient-to-r from-[#818cf8] to-[#a78bfa] text-white text-sm font-medium">
-                        {plan.badge}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Header */}
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-white mb-2">{plan.name}</h3>
-                    <p className="text-[#71717a] text-sm">{plan.description}</p>
-                  </div>
-
-                  {/* Price */}
-                  <div className="mb-6">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-bold text-white">{plan.price}</span>
-                      {plan.price !== "Custom" && plan.price !== "Free" && (
-                        <span className="text-[#52525b]">/month</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Features */}
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, i) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <div className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${plan.highlighted ? "bg-gradient-to-br from-[#818cf8] to-[#a78bfa]" : "bg-white/5"}`}>
-                          <Check className="w-3 h-3 text-white" />
-                        </div>
-                        <span className="text-[#a1a1aa] text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA */}
-                  <Link href={plan.cta.href} className="block">
-                    <Button className={`w-full h-12 ${plan.highlighted ? "bg-gradient-to-r from-[#818cf8] to-[#a78bfa] text-white border-0 glow-sm" : "btn-glass border-0"}`}>
-                      {plan.cta.text}
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
+                {/* Header */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-white mb-1">
+                    {plan.name}
+                  </h3>
+                  <p className="text-neutral-500 text-sm">
+                    {plan.description}
+                  </p>
                 </div>
+
+                {/* Price */}
+                <div className="mb-6">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-white">
+                      {plan.price}
+                    </span>
+                    {plan.period && (
+                      <span className="text-neutral-500">{plan.period}</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Features */}
+                <ul className="space-y-2 mb-6">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-neutral-400 text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <Link href={plan.cta.href} className="block">
+                  <Button 
+                    className={`w-full ${
+                      plan.highlighted 
+                        ? "bg-amber-500 hover:bg-amber-400 text-black font-medium" 
+                        : "bg-neutral-800 hover:bg-neutral-700 text-white"
+                    }`}
+                  >
+                    {plan.cta.text}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
               </motion.div>
             ))}
           </div>
 
-          {/* Info */}
+          {/* Fine print */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 text-center"
+            className="mt-8 text-center text-sm text-neutral-500"
           >
-            <p className="text-[#71717a] mb-4">
-              All plans include core observability features. Need something custom?{" "}
-              <Link href="/contact" className="text-[#818cf8] hover:underline">
-                Talk to us
-              </Link>
+            <p>
+              All plans include core observability features.{" "}
+              <Link href="/contact" className="text-amber-500 hover:underline">
+                Contact us
+              </Link>{" "}
+              for custom requirements.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-[#52525b]">
-              <span className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#22c55e]" />
-                No credit card required for Starter
-              </span>
-              <span className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#22c55e]" />
-                Cancel anytime
-              </span>
-            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Enterprise */}
-      <section className="py-24 bg-gradient-to-b from-[#030305] via-[#050508] to-[#030305]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="py-20 px-6 border-t border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
-                <Building2 className="w-4 h-4 text-[#22d3ee]" />
-                <span className="text-sm text-[#a1a1aa]">Enterprise</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Built for <span className="gradient-text">Enterprise Scale</span>
+              <h2 className="text-2xl font-bold text-white mb-4">
+                Enterprise scale
               </h2>
-              <p className="text-lg text-[#71717a] mb-8">
+              <p className="text-neutral-400 mb-6">
                 Enterprise plans are customized for your organization's specific needs. 
                 Get dedicated support, custom integrations, and deployment options.
               </p>
-              <ul className="space-y-3 mb-8">
-                {["Private cloud or on-premise deployment", "SSO/SAML integration", "Custom RBAC configurations", "Dedicated customer success manager", "Priority support with SLA", "Custom training and onboarding"].map((item, index) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#818cf8] to-[#a78bfa] flex items-center justify-center flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-[#a1a1aa]">{item}</span>
+              <ul className="space-y-2 mb-6">
+                {[
+                  "Private cloud or on-premise deployment",
+                  "SSO/SAML integration",
+                  "Custom RBAC configurations",
+                  "Dedicated customer success manager",
+                  "Priority support with SLA",
+                  "Custom training and onboarding"
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-neutral-400 text-sm">
+                    <Check className="w-4 h-4 text-amber-500" />
+                    {item}
                   </li>
                 ))}
               </ul>
               <Link href="/contact">
-                <Button className="h-12 px-6 bg-gradient-to-r from-[#818cf8] to-[#a78bfa] text-white border-0 glow-sm">
-                  Contact Enterprise Sales
+                <Button className="bg-amber-500 hover:bg-amber-400 text-black font-medium">
+                  Contact enterprise sales
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="p-6 rounded-lg bg-neutral-900/50 border border-white/5"
             >
-              <div className="relative rounded-2xl border-gradient overflow-hidden">
-                <div className="p-8 bg-[#0a0a0f]/80 backdrop-blur-xl">
-                  <Building2 className="w-12 h-12 text-[#818cf8] mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">Enterprise Ready</h3>
-                  <p className="text-[#71717a] mb-6">Trusted by engineering teams at leading technology companies.</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { label: "Clusters", value: "Unlimited" },
-                      { label: "Team Members", value: "Unlimited" },
-                      { label: "Data Retention", value: "Custom" },
-                      { label: "Support", value: "24/7" },
-                    ].map((stat) => (
-                      <div key={stat.label} className="p-4 rounded-xl bg-white/[0.02]">
-                        <div className="text-lg font-bold text-white">{stat.value}</div>
-                        <div className="text-xs text-[#52525b]">{stat.label}</div>
-                      </div>
-                    ))}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: "Clusters", value: "Unlimited" },
+                  { label: "Team members", value: "Unlimited" },
+                  { label: "Data retention", value: "Custom" },
+                  { label: "Support", value: "24/7" },
+                ].map((stat) => (
+                  <div key={stat.label} className="p-4 rounded bg-neutral-800/50">
+                    <div className="text-xl font-bold text-white">{stat.value}</div>
+                    <div className="text-xs text-neutral-500">{stat.label}</div>
                   </div>
-                </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -272,17 +287,17 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 bg-[#030305]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-6 border-t border-white/5">
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.5 }}
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Pricing <span className="gradient-text">FAQ</span>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              Common questions
             </h2>
           </motion.div>
 
@@ -294,13 +309,13 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="p-6 rounded-2xl glass-card"
+                className="p-6 rounded-lg bg-neutral-900/50 border border-white/5"
               >
                 <div className="flex items-start gap-4">
-                  <HelpCircle className="w-5 h-5 text-[#818cf8] flex-shrink-0 mt-0.5" />
+                  <HelpCircle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
-                    <p className="text-[#71717a]">{faq.a}</p>
+                    <h3 className="text-white font-medium mb-2">{faq.q}</h3>
+                    <p className="text-neutral-400 text-sm">{faq.a}</p>
                   </div>
                 </div>
               </motion.div>
@@ -309,7 +324,30 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <CTA3D />
+      {/* CTA */}
+      <section className="py-20 px-6 border-t border-white/5">
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Ready to get started?
+            </h2>
+            <p className="text-neutral-400 mb-8">
+              Start with our free tier. No credit card required.
+            </p>
+            <Link href="/contact">
+              <Button className="bg-amber-500 hover:bg-amber-400 text-black font-medium">
+                Get started free
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
